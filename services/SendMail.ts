@@ -9,7 +9,7 @@ const mail = nodemailer.createTransport({
     }
 });
 
-function SendMailSignup({ email, username, password, token }: MailSignupProps) {
+function SendMailSignup(email:string, username:string, password:string, token:string) {
     var mailOptions = {
         from: 'TVnow',
         to: email,
@@ -26,7 +26,7 @@ function SendMailSignup({ email, username, password, token }: MailSignupProps) {
     });
 }
 
-function SendMailTwoFactor({ email, id_token, timekey_token }: MailTwoFacProps) {
+function SendMailTwoFactor( email:string, id_token:number, timekey_token:string ) {
     var mailOptions = {
         from: 'TVnow',
         to: email,
@@ -40,7 +40,7 @@ function SendMailTwoFactor({ email, id_token, timekey_token }: MailTwoFacProps) 
     });
 }
 
-function SendMailChangePass({ email, token }: MailChangePassProps) {
+function SendMailChangePass(email: string, token: string) {
     var mailOptions = {
         from: 'TVnow',
         to: email,
@@ -56,7 +56,7 @@ function SendMailChangePass({ email, token }: MailChangePassProps) {
     });
 }
 
-function SendMailForgotPass({ email, username, password }: MailForgotPassProps) {
+function SendMailForgotPass( email:string, username:string, password:string) {
     var mailOptions = {
         from: 'TVnow',
         to: email,

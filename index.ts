@@ -5,6 +5,7 @@ import path from 'path';
 import bodyParser from 'body-parser';
 import Signin from "./network/Signin";
 import Signup from "./network/Signup";
+import ConfirmSignup from "./network/SignupVerify";
 
 const app: Application = express();
 const PORT = 3001;
@@ -26,11 +27,12 @@ app.use(cors());
 
 //NETWORK API
 //SQL services
-app.post(`/api/${process.env.API_V}/signin`, Signin);
-app.post(`/api/${process.env.API_V}/signup`, Signup);
 app.post(`/api/${process.env.API_V}/check-username`, CheckUsername);
 app.post(`/api/${process.env.API_V}/check-email`, CheckEmail);
 app.post(`/api/${process.env.API_V}/check-giftcode`, CheckGiftcode);
+app.post(`/api/${process.env.API_V}/signin`, Signin);
+app.post(`/api/${process.env.API_V}/signup`, Signup);
+app.post(`/api/${process.env.API_V}/confirm-signup`, ConfirmSignup);
 
 app.listen(PORT, () => {
     console.log(`server is running..${PORT}`);
