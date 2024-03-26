@@ -5,7 +5,12 @@ import path from 'path';
 import bodyParser from 'body-parser';
 import Signin from "./network/Signin";
 import Signup from "./network/Signup";
-import ConfirmSignup from "./network/SignupVerify";
+import VerifySignup from "./network/SignupVerify";
+import PreSignup from "./network/PreSignup";
+import { body } from "express-validator";
+import UserProfile from "./network/User";
+import ActivateTwoFac from "./network/TwoFacEnable";
+import RedeemGiftCode from "./payment/RedeemCode";
 
 const app: Application = express();
 const PORT = 3001;
@@ -27,12 +32,16 @@ app.use(cors());
 
 //NETWORK API
 //SQL services
-app.post(`/api/${process.env.API_V}/check-username`, CheckUsername);
-app.post(`/api/${process.env.API_V}/check-email`, CheckEmail);
-app.post(`/api/${process.env.API_V}/check-giftcode`, CheckGiftcode);
-app.post(`/api/${process.env.API_V}/signin`, Signin);
-app.post(`/api/${process.env.API_V}/signup`, Signup);
-app.post(`/api/${process.env.API_V}/confirm-signup`, ConfirmSignup);
+app.post(`/api/${process.env.API_V}/check-username`, body('username').notEmpty(), CheckUsername); //✅️
+app.post(`/api/${process.env.API_V}/check-email`, body('email').notEmpty(), CheckEmail);//✅️
+app.post(`/api/${process.env.API_V}/check-giftcode`, body('giftcode').notEmpty(), body('email').notEmpty(), CheckGiftcode);//✅️
+// app.post(`/api/${process.env.API_V}/signin`, Signin);
+app.get(`/api/${process.env.API_V}/signup`, body('email').notEmpty(), PreSignup); //✅️
+// app.post(`/api/${process.env.API_V}/signup`, Signup);
+// app.post(`/api/${process.env.API_V}/verify-signup`, VerifySignup);
+app.get(`/api/${process.env.API_V}/user/profile`, UserProfile); //✅️
+app.patch(`/api/${process.env.API_V}/user/redeem`, body('giftcode').notEmpty(), RedeemGiftCode);//✅️
+app.patch(`/api/${process.env.API_V}/user/settings/twofactor`, body('is_twofactor').notEmpty(), ActivateTwoFac);//✅️
 
 app.listen(PORT, () => {
     console.log(`server is running..${PORT}`);

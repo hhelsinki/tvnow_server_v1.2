@@ -1,39 +1,47 @@
 import { Request, Response } from "express";
 import { error_internal_list, error_user_list, success_user_list } from "../lib/i18n";
 import ErrDetector from "../debug/ErrorDetector";
+import { validationResult } from "express-validator";
+
+const pools = require('../mysql/database.ts');
 
 function ChangePassword(req: Request, res: Response) {
     let api_key = req.headers['api-key'];
 
     if (api_key === '1234') {
-        let token = req.headers['authorization'];
-        let current_password: string = req.body.current_password;
-        //@ts-ignore
-        pool.query('SELECT id, email FROM user WHERE (BINARY password = ? && BINARY access_token = ?)', [current_password, token], (err, result) => {
-            if (err) throw err;
-            let results = result[0];
-            switch (results) {
-                case null: case undefined: case '':
-                    return res.send({ status: false, message: error_user_list.INVALID_PASSWORD });
-                default:
-                    const access_token = randtoken.generate(20);
-                    let uid: number = results.id;
-                    let email: string = results.email;
-                    //@ts-ignore
-                    pool.query('UPDATE user SET access_token = ? WHERE user_id = ?', [access_token, uid], (err, result) => {
-                        if (err) throw err;
-                        switch (result.changedRows) {
-                            case 1:
-                                SendMailChangePass(email, access_token);
-                                return res.send({ status: true, message: success_user_list.SUCCESS_MAIL_CHANGE_PASS });
-                            default:
-                                ErrDetector('sql', 'user', 66);
-                                return res.sendStatus(500);
-                        }
-                    });
-                    break;
-            }
-        })
+        const result = validationResult(req);
+
+        if (result.isEmpty()) {
+            let token = req.headers['authorization'];
+            let current_password: string = req.body.current_password;
+            //@ts-ignore
+            pools.query('SELECT id, email FROM user WHERE (BINARY password = ? && BINARY access_token = ?)', [current_password, token], (err, result) => {
+                if (err) throw err;
+                let results = result[0];
+                switch (results) {
+                    case null: case undefined: case '':
+                        return res.send({ status: false, message: error_user_list.INVALID_PASSWORD });
+                    default:
+                        const access_token = randtoken.generate(20);
+                        let uid: number = results.id;
+                        let email: string = results.email;
+                        //@ts-ignore
+                        pools.query('UPDATE user SET access_token = ? WHERE user_id = ?', [access_token, uid], (err, result) => {
+                            if (err) throw err;
+                            switch (result.changedRows) {
+                                case 1:
+                                    SendMailChangePass(email, access_token);
+                                    return res.send({ status: true, message: success_user_list.SUCCESS_MAIL_CHANGE_PASS });
+                                default:
+                                    ErrDetector('sql', 'user', 66);
+                                    return res.sendStatus(500);
+                            }
+                        });
+                        break;
+                }
+            });
+        }
+        return res.send({ status: false, message: result.array() });
     }
 
     if (api_key != '1234') {
@@ -52,7 +60,7 @@ function UpdatePassword(req: Request, res: Response) {
         switch (passwordRegex.test(new_password)) {
             case true:
                 //@ts-ignore
-                pool.query('SELECT id FROM user WHERE BINARY access_token = ?', token, (err, result) => {
+                pools.query('SELECT id FROM user WHERE BINARY access_token = ?', token, (err, result) => {
                     if (err) throw err;
                     let results = result[0];
                     switch (results.id) {
@@ -60,7 +68,7 @@ function UpdatePassword(req: Request, res: Response) {
                             return res.send({ status: false, message: error_user_list.INVALID_TOKEN });
                         default:
                             //@ts-ignore
-                            pool.query('UPDATE user SET password = ? WHERE user_id = ?', [password_new, results.id], (err, result) => {
+                            pools.query('UPDATE user SET password = ? WHERE user_id = ?', [password_new, results.id], (err, result) => {
                                 if (err) throw err;
                                 switch (result.changedRows) {
                                     case 1:
@@ -90,7 +98,7 @@ function ForgotPassword(req: Request, res: Response) {
     if (api_key === '1234') {
         let email: string = req.body.email;
         //@ts-ignore
-        pool.query('SELECT username, email, password FROM user WHERE email = ?', [email], (err, result) => {
+        pools.query('SELECT username, email, password FROM user WHERE email = ?', [email], (err, result) => {
             if (err) throw err;
             let results = result[0];
             switch (result[0]) {
