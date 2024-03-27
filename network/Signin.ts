@@ -2,11 +2,18 @@ import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 import { error_user_list, success_user_list } from "../lib/i18n";
 import ErrDetector from "../debug/ErrorDetector";
-
+import randtoken from 'rand-token';
 const pools = require('../mysql/database');
 const timekey = require('rand-token').generator({
     chars: '0-9'
 });
+const {SendMailTwoFactor} = require('../services/SendMail');
+const {MongoClient} = require('mongodb');
+const url = 'mongodb://localhost:27017';
+const client = new MongoClient(url);
+const dbName = 'favourite';
+const collection = client.db(dbName).collection('list');
+
 
 function Signin(req: Request, res: Response) {
     let api_key = req.headers['api-key'];
@@ -72,10 +79,10 @@ function Signin(req: Request, res: Response) {
                                                         const findUser = await collection.find({ user: results.email }).toArray();
                                                         switch (findUser[0]) {
                                                             case null: case undefined: case '':
-                                                                const insertUser = await collection.insertOne({ user: results.email, token: token, data: [] });
+                                                                await collection.insertOne({ user: results.email, token: token, data: [] });
                                                                 break;
                                                             default:
-                                                                const updateResult = await collection.updateOne({ user: results.email }, { $set: { token: token } });
+                                                                await collection.updateOne({ user: results.email }, { $set: { token: token } });
                                                                 break;
                                                         }
                                                     }

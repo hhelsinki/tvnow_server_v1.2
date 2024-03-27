@@ -4,8 +4,8 @@ import { error_internal_list, error_user_list, success_user_list } from "../lib/
 import ErrDetector from "../debug/ErrorDetector";
 import crypto from 'crypto';
 import randtoken from 'rand-token';
-const pool = require('./database.js');
 
+const pools = require('./database.js');
 
 function Signup(req: Request, res: Response) {
     let api_key = req.headers['api-key'];

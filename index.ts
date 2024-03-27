@@ -35,7 +35,8 @@ app.use(cors());
 app.post(`/api/${process.env.API_V}/check-username`, body('username').notEmpty(), CheckUsername); //✅️
 app.post(`/api/${process.env.API_V}/check-email`, body('email').notEmpty(), CheckEmail);//✅️
 app.post(`/api/${process.env.API_V}/check-giftcode`, body('giftcode').notEmpty(), body('email').notEmpty(), CheckGiftcode);//✅️
-// app.post(`/api/${process.env.API_V}/signin`, Signin);
+app.post(`/api/${process.env.API_V}/signin`, body('username').notEmpty(), body('password').notEmpty(), Signin);
+app.post(`/api/${process.env.API_V}/signin/twofactor`, body('username').notEmpty(), body('password').notEmpty(), Signin);
 app.get(`/api/${process.env.API_V}/signup`, body('email').notEmpty(), PreSignup); //✅️
 // app.post(`/api/${process.env.API_V}/signup`, Signup);
 // app.post(`/api/${process.env.API_V}/verify-signup`, VerifySignup);
