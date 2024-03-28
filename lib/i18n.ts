@@ -8,11 +8,14 @@ export const error_user_list = {
     INVALID_PASSWORD: 'This password is not valid.',
     INVALID_PASSWORD_REQ: 'The password must contains the minimum required.',
     INVALID_CONFIG: 'Something is missing, please proceed the sign up again.',
+    INVALID_DIGITCODE: 'The digits code is not valid.',
+    INVALID_PAYMENT: 'The payment is not valid',
     DUPLICATE_GIFTCODE: 'This giftcard code is already in used.',
     DUPLICATE_USERNAME: 'This username is already in used.',
     DUPLICATE_EMAIL: 'This email is already in used.',
     NOTFOUND_USERNAME: 'This username is not exist.',
     NOTFOUND_EMAIL: 'This email is not exist.',
+    EXPIRED_TOKEN: 'The twofactor\'s session is expired, please try again later.'
 }
 
 export const success_user_list = {

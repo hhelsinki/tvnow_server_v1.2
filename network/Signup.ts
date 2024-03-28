@@ -38,6 +38,71 @@ function Signup(req: Request, res: Response) {
                                             default:
                                                 if (giftcode_result.is_used === 0 || giftcode_result.is_used === false) {//check if giftcode can be used
 
+
+
+
+                                                    //UPSERT
+                                                    const password = crypto.randomBytes(10).toString('base64url');
+                                                    const access_token = randtoken.generate(20);
+                                                    //@ts-ignore
+                                                    pools.query('INSERT INTO user (username, password, email, access_token) VALUES (?, ?, ?, ?)', [username, password, email, access_token], (err, result) => { //insert to user
+                                                        if (err) throw err;
+                                                        switch (result.changedRows) { //id, code_id
+                                                            case 1:
+                                                                //@ts-ignore
+                                                                pools.query(`SELECT user.id, giftcard.id as code_id FROM user INNER JOIN giftcard ON user.id = giftcard.id WHERE user.email = ?`, [email], (err, result) => { //get uid
+                                                                    if (err) throw err;
+                                                                    let results = result[0]; //result from inner join table
+                                                                    let uid = result[0].id;
+                                                                    let code_id = result[0].code_id;
+                                                                    switch (results) {
+                                                                        case null: case undefined: case '':
+                                                                            return res.send({ status: false, message: error_internal_list.FAILED_SIGNUP });
+                                                                        default:
+                                                                            //@ts-ignore
+                                                                            pools.query('UPDATE giftcard SET is_used = 1 WHERE user_id = ?', [uid], (err, result) => { //update to giftcard
+                                                                                if (err) throw err;
+                                                                                switch (result.changedRows) {
+                                                                                    case 1:
+                                                                                        //@ts-ignore
+                                                                                        pools.query('INSERT INTO payment (user_id, plan, method, giftcard_id) VALUES (?, ?, ?, ?)', [uid, plan, 'giftcard', code_id], (err, result) => {
+                                                                                            if (err) throw err;
+                                                                                            switch (result.changedRows) {
+                                                                                                case 1:
+                                                                                                    //@ts-ignore
+                                                                                                    pools.query('INSERT INTO authen (user_id) VALUES (?)', [uid], (err, result) => {
+                                                                                                        if (err) throw err;
+                                                                                                        switch (result.changedRows) {
+                                                                                                            case 1:
+                                                                                                                SendMailSignup(email, username, password, access_token);
+                                                                                                                return res.send({ status: true, message: success_user_list.SUCCESS_MAIL_SIGNUP });
+                                                                                                            default:
+                                                                                                                ErrDetector('sql', 'authen', 24);
+                                                                                                                return res.send({ status: false, message: error_internal_list.FAILED_SAVE_AUTHEN });
+                                                                                                        }
+                                                                                                    });
+                                                                                                default:
+                                                                                                    ErrDetector('sql', 'payment', 17);
+                                                                                                    return res.send({ status: false, message: error_internal_list.FAILED_SAVE_PAYMENT });
+                                                                                            }
+                                                                                        });
+                                                                                        break;
+                                                                                    default:
+                                                                                        return res.send({ status: false, message: error_internal_list.FAILED_SAVE_GIFTCODE });
+                                                                                }
+                                                                            });
+                                                                            break;
+                                                                    }
+                                                                });
+
+                                                            default:
+                                                                ErrDetector('sql', 'user', 63);
+                                                                return res.sendStatus(500);
+                                                        }
+                                                    });
+
+
+
                                                 }
                                                 return res.send({ status: false, message: error_user_list.DUPLICATE_GIFTCODE });
                                         }
@@ -50,70 +115,6 @@ function Signup(req: Request, res: Response) {
                         return res.send({ status: false, message: error_user_list.DUPLICATE_USERNAME });
                 }
             });
-
-
-            //UPSERT
-            const password = crypto.randomBytes(10).toString('base64url');
-            const access_token = randtoken.generate(20);
-            //@ts-ignore
-            pools.query('INSERT INTO user (username, password, email, access_token) VALUES (?, ?, ?, ?)', [username, password, email, access_token], (err, result) => { //insert to user
-                if (err) throw err;
-                switch (result.changedRows) { //id, code_id
-                    case 1:
-                        //@ts-ignore
-                        pools.query(`SELECT user.id, giftcard.id as code_id FROM user INNER JOIN giftcard ON user.id = giftcard.id WHERE user.email = ?`, [email], (err, result) => { //get uid
-                            if (err) throw err;
-                            let results = result[0]; //result from inner join table
-                            let uid = result[0].id;
-                            let code_id = result[0].code_id;
-                            switch (results) {
-                                case null: case undefined: case '':
-                                    return res.send({ status: false, message: error_internal_list.FAILED_SIGNUP });
-                                default:
-                                    //@ts-ignore
-                                    pools.query('UPDATE giftcard SET is_used = 1 WHERE user_id = ?', [uid], (err, result) => { //update to giftcard
-                                        if (err) throw err;
-                                        switch (result.changedRows) {
-                                            case 1:
-                                                //@ts-ignore
-                                                pools.query('INSERT INTO payment (user_id, plan, method, giftcard_id) VALUES (?, ?, ?, ?)', [uid, plan, 'giftcard', code_id], (err, result) => {
-                                                    if (err) throw err;
-                                                    switch (result.changedRows) {
-                                                        case 1:
-                                                            //@ts-ignore
-                                                            pools.query('INSERT INTO authen (user_id) VALUES (?)', [uid], (err, result) => {
-                                                                if (err) throw err;
-                                                                switch (result.changedRows) {
-                                                                    case 1:
-                                                                        SendMailSignup(email, username, password, access_token);
-                                                                        return res.send({ status: true, message: success_user_list.SUCCESS_MAIL_SIGNUP });
-                                                                    default:
-                                                                        ErrDetector('sql', 'authen', 24);
-                                                                        return res.send({ status: false, message: error_internal_list.FAILED_SAVE_AUTHEN });
-                                                                }
-                                                            });
-                                                        default:
-                                                            ErrDetector('sql', 'payment', 17);
-                                                            return res.send({ status: false, message: error_internal_list.FAILED_SAVE_PAYMENT });
-                                                    }
-                                                });
-                                                break;
-                                            default:
-                                                return res.send({ status: false, message: error_internal_list.FAILED_SAVE_GIFTCODE });
-                                        }
-                                    });
-                                    break;
-                            }
-                        });
-
-                    default:
-                        ErrDetector('sql', 'user', 63);
-                        return res.sendStatus(500);
-                }
-            });
-
-
-
         }
         return res.send({ status: false, message: result.array() });
 

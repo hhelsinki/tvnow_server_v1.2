@@ -11,6 +11,8 @@ import { body } from "express-validator";
 import UserProfile from "./network/User";
 import ActivateTwoFac from "./network/TwoFacEnable";
 import RedeemGiftCode from "./payment/RedeemCode";
+import SigninTwoFac from "./network/SigninTwoFac";
+import SignupVerify from "./network/SignupVerify";
 
 const app: Application = express();
 const PORT = 3001;
@@ -35,11 +37,11 @@ app.use(cors());
 app.post(`/api/${process.env.API_V}/check-username`, body('username').notEmpty(), CheckUsername); //✅️
 app.post(`/api/${process.env.API_V}/check-email`, body('email').notEmpty(), CheckEmail);//✅️
 app.post(`/api/${process.env.API_V}/check-giftcode`, body('giftcode').notEmpty(), body('email').notEmpty(), CheckGiftcode);//✅️
-app.post(`/api/${process.env.API_V}/signin`, body('username').notEmpty(), body('password').notEmpty(), Signin);
-app.post(`/api/${process.env.API_V}/signin/twofactor`, body('username').notEmpty(), body('password').notEmpty(), Signin);
+app.post(`/api/${process.env.API_V}/signin`, body('username').notEmpty(), body('password').notEmpty(), Signin); 
+app.post(`/api/${process.env.API_V}/signin/twofactor`, body('username').notEmpty(), body('password').notEmpty(), SigninTwoFac);
 app.get(`/api/${process.env.API_V}/signup`, body('email').notEmpty(), PreSignup); //✅️
-// app.post(`/api/${process.env.API_V}/signup`, Signup);
-// app.post(`/api/${process.env.API_V}/verify-signup`, VerifySignup);
+app.post(`/api/${process.env.API_V}/signup`, Signup);
+app.post(`/api/${process.env.API_V}/signup/verify`, SignupVerify);
 app.get(`/api/${process.env.API_V}/user/profile`, UserProfile); //✅️
 app.patch(`/api/${process.env.API_V}/user/redeem`, body('giftcode').notEmpty(), RedeemGiftCode);//✅️
 app.patch(`/api/${process.env.API_V}/user/settings/twofactor`, body('is_twofactor').notEmpty(), ActivateTwoFac);//✅️

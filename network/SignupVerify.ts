@@ -10,35 +10,44 @@ function VerifySignup(req: Request, res: Response) {
         const result = validationResult(req);
 
         if (result.isEmpty()) {
-            let username: string = req.body.username;
-            let token: string = req.body.token
+            let token = req.query.token;
             //@ts-ignore
-            pool.query('SELECT access_token FROM user WHERE username = ?', [username], (err, result) => {
+            pools.query('SELECT id, is_verify FROM user WHERE BINARY access_token = ?', [token], (err, result) => {//check if is_verify = 0
                 if (err) throw err;
                 let results = result[0];
                 switch (results) {
                     case null: case undefined: case '':
-                        return res.send({ status: false, message: error_user_list.INVALID_USERNAME });
+                        return res.sendStatus(401);
                     default:
-                        if (token === results.access_token) {
+                        if (results.is_verify === false || results.is_verify === 0) {
+                            let uid: number = results.id;
                             //@ts-ignore
-                            pool.query('UPDATE user SET is_verify = 1 WHERE username = ?', [username], (err, result) => {
+                            pools.query('SELECT giftcard_id FROM payment WHERE user_id = ?', [uid], (err, result) => {//check if user is paid by payment find user_id = uid
                                 if (err) throw err;
-                                switch (result.changedRows) {
-                                    case 1:
-                                        return res.send({ status: true, message: '' });
+                                switch (result[0]) {
+                                    case null: case undefined: case '':
+                                        return res.send({ status: false, message: error_user_list.INVALID_PAYMENT });
                                     default:
-                                        ErrDetector('sql', 'user', 21);
-                                        return res.sendStatus(500);
+                                        //@ts-ignore
+                                        pools.query('UPDATE user SET is_verify = 1 WHERE id = ?', [uid], (err, result) => {//update is_verify = 1
+                                            if (err) throw err;
+                                            switch (result.changedRows) {
+                                                case 1:
+                                                    return res.send({ status: true, message: '' });
+                                                default:
+                                                    ErrDetector('sql', 'user', 32);
+                                                    return res.sendStatus(500);
+                                            }
+                                        });
+                                        return;
                                 }
                             });
+                            return;
                         }
-                        if (token != result.access_token) {
-                            return res.send({ status: false, message: error_user_list.INVALID_TOKEN });
-                        }
-                        break;
+                        return res.sendStatus(403);
                 }
             });
+            return;
         }
         return res.send({ status: false, message: result.array() });
 
