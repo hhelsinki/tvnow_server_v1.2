@@ -11,14 +11,20 @@ function PreSignup(req: Request, res: Response) {
         const result = validationResult(req);
 
         if (result.isEmpty()) {
-            let email: string = req.body.email;
+            let email = req.query.email;
             //@ts-ignore
             pools.query('SELECT code FROM giftcard WHERE email_used = ?', [email], (err, result) => {
                 if (err) throw err;
-                switch (result[0]) {
+                switch (result[0]) { 
                     case null: case undefined: case '':
                         return res.send({ status: false, message: error_user_list.INVALID_CONFIG });
                     default:
+                        let isCodeUsed: boolean | number = result[0].is_used;
+
+                        if (isCodeUsed === 1 || isCodeUsed === true) {
+                            return res.send({ status: false, message: error_user_list.DUPLICATE_GIFTCODE });
+                        }
+
                         let userCode = result[0].code;
                         let codeSensor = userCode.replace(/([A-Z0-9]{4})([A-Z0-9]{4})([A-Z0-9]{4})([A-Z0-9]{4})/, '$1-XXXX-XXXX-$4');
                         let codeOutput = codeSensor.replace(/([A-Z0-9]{4})([A-Z0-9]{4})([A-Z0-9]{4})([A-Z0-9]{4})/, '$1-$2-$3-$4');

@@ -3,6 +3,8 @@ import ErrDetector from "../debug/ErrorDetector";
 import { error_user_list } from "../lib/i18n";
 import { validationResult } from "express-validator";
 
+const pools = require('../mysql/database');
+
 function VerifySignup(req: Request, res: Response) {
     let api_key = req.headers['api-key'];
 

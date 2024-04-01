@@ -13,9 +13,11 @@ export const error_user_list = {
     DUPLICATE_GIFTCODE: 'This giftcard code is already in used.',
     DUPLICATE_USERNAME: 'This username is already in used.',
     DUPLICATE_EMAIL: 'This email is already in used.',
+    DUPLICATE_PASSWORD: 'Please enter the new password.',
     NOTFOUND_USERNAME: 'This username is not exist.',
     NOTFOUND_EMAIL: 'This email is not exist.',
-    EXPIRED_TOKEN: 'The twofactor\'s session is expired, please try again later.'
+    EXPIRED_TOKEN: 'The twofactor\'s session is expired, please try again later.',
+    MISSING_VERIFY: 'You must activate this account before change the password.'
 }
 
 export const success_user_list = {
