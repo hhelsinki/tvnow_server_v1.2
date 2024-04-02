@@ -7,8 +7,8 @@ const pools = require('../mysql/database');
 const timekey = require('rand-token').generator({
     chars: '0-9'
 });
-const {SendMailTwoFactor} = require('../services/SendMail');
-const {MongoClient} = require('mongodb');
+const { SendMailTwoFactor } = require('../services/SendMail');
+const { MongoClient } = require('mongodb');
 const url = 'mongodb://localhost:27017';
 const client = new MongoClient(url);
 const dbName = 'favourite';
@@ -87,7 +87,12 @@ function Signin(req: Request, res: Response) {
                                                         }
                                                     }
                                                     upsertNoSql();
-                                                    return res.send({ status: true, data: token });
+                                                    return res.send({
+                                                        status: true,
+                                                        data: {
+                                                            access_token: token
+                                                        }
+                                                    });
                                                 default:
                                                     ErrDetector('sql', 'user', 74);
                                                     return res.sendStatus(500);

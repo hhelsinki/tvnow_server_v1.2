@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 
 const pools = require('../mysql/database.ts');
 
-function UserProfile(req: Request, res: Response) {
+function Profile(req: Request, res: Response) {
     let api_key = req.headers['api-key'];
     let authorization = req.headers['authorization'];
 
@@ -33,4 +33,4 @@ function UserProfile(req: Request, res: Response) {
     }
 }
 
-export default UserProfile;
+export default Profile;

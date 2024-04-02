@@ -7,7 +7,7 @@ import Signin from "./network/Signin";
 import Signup from "./network/Signup";
 import PreSignup from "./network/PreSignup";
 import { body, query } from "express-validator";
-import UserProfile from "./network/User";
+import Profile from "./network/Profile";
 import RedeemGiftCode from "./payment/RedeemCode";
 import SigninTwoFac from "./network/SigninTwoFac";
 import SignupVerify from "./network/SignupVerify";
@@ -41,12 +41,12 @@ app.post(`/api/${process.env.API_V}/signin/twofactor`, body('username').notEmpty
 app.get(`/api/${process.env.API_V}/signup`, query('email').notEmpty(), PreSignup); //✅️
 app.post(`/api/${process.env.API_V}/signup`, body('email').notEmpty(), body('username').notEmpty(), body('plan').notEmpty(), Signup); //✅️
 app.post(`/api/${process.env.API_V}/signup/verify`, query('token').notEmpty(), SignupVerify); //✅️
-app.get(`/api/${process.env.API_V}/user/profile`, UserProfile); //✅️
+app.get(`/api/${process.env.API_V}/user/profile`, Profile); //✅️
 app.patch(`/api/${process.env.API_V}/user/redeem`, body('giftcode').notEmpty(), RedeemGiftCode);//✅️
 app.patch(`/api/${process.env.API_V}/user/settings/twofactor`, body('is_twofactor').notEmpty(), TwoFactor);//✅️
-app.post(`/api/${process.env.API_V}/user/forgot-password`, body('email').notEmpty(), ForgotPass);
-app.post(`/api/${process.env.API_V}/user/settings/password`, body('password').notEmpty(), ChangePass);
-app.patch(`/api/${process.env.API_V}/user/settings/password`, query('token').notEmpty(), body('password').notEmpty(), UpdatePass);
+app.post(`/api/${process.env.API_V}/forgot-password`, body('email').notEmpty(), ForgotPass);//✅️
+app.post(`/api/${process.env.API_V}/user/settings/password`, body('password').notEmpty(), ChangePass);//✅️
+app.patch(`/api/${process.env.API_V}/user/settings/password`, query('token').notEmpty(), body('password').notEmpty(), UpdatePass);//✅️
 
 app.listen(PORT, () => {
     console.log(`server is running..${PORT}`);

@@ -1,0 +1,388 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "tvnow",
+    "dateExported": "2024-04-02T03:53:28.088Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "72036406-49b4-428e-9001-21796756ed33",
+            "name": "network",
+            "containerId": "",
+            "created": "2024-04-01T08:06:36.699Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "93aea977-2d5a-4c8c-8244-9243d5cb94d1",
+            "name": "user",
+            "containerId": "72036406-49b4-428e-9001-21796756ed33",
+            "created": "2024-04-01T08:17:20.621Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "2c858d0e-d523-48f0-b56b-8a7b1de9c497",
+            "name": "signup",
+            "containerId": "72036406-49b4-428e-9001-21796756ed33",
+            "created": "2024-04-01T09:21:52.851Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "e6e5fb73-56c7-464b-a19c-5a2ff57d79a0",
+            "name": "settings",
+            "containerId": "93aea977-2d5a-4c8c-8244-9243d5cb94d1",
+            "created": "2024-04-02T03:32:18.019Z",
+            "sortNum": 40000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "1bd3e750-7f43-4ca4-b039-c9482357ece5",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "93aea977-2d5a-4c8c-8244-9243d5cb94d1",
+            "name": "Forgot Password",
+            "url": "{{endpoint}}/forgot-password",
+            "method": "POST",
+            "sortNum": 5000,
+            "created": "2024-04-02T03:27:48.499Z",
+            "modified": "2024-04-02T03:43:18.789Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"bongkotsaelo.cmtc@gmail.com\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "35dbc4aa-5b0c-428a-9308-9717dcaf8b31",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "2c858d0e-d523-48f0-b56b-8a7b1de9c497",
+            "name": "Check Username",
+            "url": "{{endpoint}}/check-username",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-04-01T08:04:00.952Z",
+            "modified": "2024-04-02T02:45:04.723Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\": \"emeline\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "4fe7311a-d653-4d3a-a603-aab61cb48076",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "93aea977-2d5a-4c8c-8244-9243d5cb94d1",
+            "name": "User Profile",
+            "url": "{{endpoint}}/user/profile",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2024-04-01T08:12:58.990Z",
+            "modified": "2024-04-02T03:22:22.227Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                },
+                {
+                    "name": "authorization",
+                    "value": "{{access_token}}"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "57d629e3-83e6-43d3-9174-90ba8ad5c011",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "e6e5fb73-56c7-464b-a19c-5a2ff57d79a0",
+            "name": "Two Factor",
+            "url": "{{endpoint}}/user/settings/twofactor",
+            "method": "PATCH",
+            "sortNum": 10000,
+            "created": "2024-04-01T08:17:45.961Z",
+            "modified": "2024-04-02T03:25:59.744Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                },
+                {
+                    "name": "authorization",
+                    "value": "{{access_token}}"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"is_twofactor\": false\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "1dfb2be2-5ead-434f-84d5-9a7381056cc5",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "2c858d0e-d523-48f0-b56b-8a7b1de9c497",
+            "name": "Check Email",
+            "url": "{{endpoint}}/check-email",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-04-01T08:07:37.859Z",
+            "modified": "2024-04-02T02:45:10.036Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"emelinecassidy@gmail.com\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "d9ef2789-a673-4d19-9fe3-477de4c32c65",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "93aea977-2d5a-4c8c-8244-9243d5cb94d1",
+            "name": "User Redeem",
+            "url": "{{endpoint}}/user/redeem",
+            "method": "PATCH",
+            "sortNum": 20000,
+            "created": "2024-04-01T08:14:45.205Z",
+            "modified": "2024-04-02T03:25:44.201Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                },
+                {
+                    "name": "authorization",
+                    "value": "{{access_token}}"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"giftcode\": \"DFIEIOFJOIJOIJ\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "ee383d51-98a2-4db1-bab9-7348ca8cdb9e",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "e6e5fb73-56c7-464b-a19c-5a2ff57d79a0",
+            "name": "Change Password",
+            "url": "{{endpoint}}/user/settings/password",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-04-02T03:30:13.012Z",
+            "modified": "2024-04-02T03:46:47.375Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                },
+                {
+                    "name": "authorization",
+                    "value": "{{access_token}}"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"password\": \"1234\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "a46a02b7-60b7-473a-b989-334325eb6c8e",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "2c858d0e-d523-48f0-b56b-8a7b1de9c497",
+            "name": "Check Giftcode",
+            "url": "{{endpoint}}/check-giftcode",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2024-04-01T08:08:13.996Z",
+            "modified": "2024-04-02T02:45:15.620Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"emelinecassidy@gmail.com\",\n  \"giftcode\": \"Q3EEBF2SX2RZAQEI\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "f366d17f-106d-4364-a99e-602a6c91c15a",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "e6e5fb73-56c7-464b-a19c-5a2ff57d79a0",
+            "name": "Update Password",
+            "url": "{{endpoint}}/user/settings/password?token=equqEe6BOSDh1eguFp8a",
+            "method": "PATCH",
+            "sortNum": 30000,
+            "created": "2024-04-02T03:33:23.379Z",
+            "modified": "2024-04-02T03:51:12.161Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                }
+            ],
+            "params": [
+                {
+                    "name": "token",
+                    "value": "equqEe6BOSDh1eguFp8a",
+                    "isPath": false
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"password\": \"123456\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "c66dcc55-615e-4eb3-85db-122b63314d0d",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "72036406-49b4-428e-9001-21796756ed33",
+            "name": "Signin",
+            "url": "{{endpoint}}/signin",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2024-04-01T08:10:42.496Z",
+            "modified": "2024-04-02T03:51:28.551Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\": \"kayd\",\n  \"password\": \"123456\"\n}",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "200"
+                },
+                {
+                    "type": "res-time",
+                    "custom": "",
+                    "action": "<",
+                    "value": "100"
+                },
+                {
+                    "type": "set-env-var",
+                    "custom": "json.data.access_token",
+                    "action": "setto",
+                    "value": "{{access_token}}"
+                }
+            ]
+        },
+        {
+            "_id": "5c3f9053-5f40-4c30-ad4e-232138caa30a",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "2c858d0e-d523-48f0-b56b-8a7b1de9c497",
+            "name": "Pre Signup",
+            "url": "{{endpoint}}/signup?email=emelinecassidy@gmail.com",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2024-04-01T08:11:37.860Z",
+            "modified": "2024-04-02T02:45:21.787Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                }
+            ],
+            "params": [
+                {
+                    "name": "email",
+                    "value": "emelinecassidy@gmail.com",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "8f02219e-027f-49f6-bf42-65773806f4b4",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "2c858d0e-d523-48f0-b56b-8a7b1de9c497",
+            "name": "Signup",
+            "url": "{{endpoint}}/signup",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2024-04-01T08:20:39.856Z",
+            "modified": "2024-04-02T02:45:28.692Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\": \"emeline\",\n  \"email\": \"emelinecassidy@gmail.com\",\n  \"plan\": 1\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "2ff34159-ab46-4d81-bb96-55e6bc76037f",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "2c858d0e-d523-48f0-b56b-8a7b1de9c497",
+            "name": "Signup Verify",
+            "url": "{{endpoint}}/signup/verify?token=vkaTHYhPUk6AGpqRUPub",
+            "method": "POST",
+            "sortNum": 60000,
+            "created": "2024-04-01T09:18:26.487Z",
+            "modified": "2024-04-02T02:45:36.574Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                }
+            ],
+            "params": [
+                {
+                    "name": "token",
+                    "value": "vkaTHYhPUk6AGpqRUPub",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        }
+    ]
+}

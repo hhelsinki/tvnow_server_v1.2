@@ -1,0 +1,21 @@
+{
+    "client": "Thunder Client",
+    "environmentName": "tvnow",
+    "dateExported": "2024-04-02T03:52:40.275Z",
+    "version": "1.0",
+    "envFile": "/home/hhelsinki/nodeJS/tvnow/.env",
+    "variables": [
+        {
+            "name": "api_key",
+            "value": "{{DEVELOP_API_KEY}}"
+        },
+        {
+            "name": "endpoint",
+            "value": "{{DEVELOP_ENDPOINT}}"
+        },
+        {
+            "name": "access_token",
+            "value": "5UxyQWATwRsmrOkL1zE9"
+        }
+    ]
+}

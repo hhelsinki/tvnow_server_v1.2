@@ -45,7 +45,7 @@ function SendMailChangePass(email: string, token: string) {
         from: 'TVnow',
         to: email,
         subject: 'TVnow.com | Change Password',
-        html: `<h2>You request to change the current password, kindly use this <a href="http://localhost:3000/password-submit?user=${email}&token=${token}">link</a> to change password.</h2>
+        html: `<h2>You request to change the current password, kindly use this <a href="${process.env.DEVELOP_CLIENT}/password-submit?token=${token}">link</a> to change password.</h2>
         <h3>
             <i>If you're not submit this, we highly recommended you to change your current password.</i>
         </h3>`
@@ -61,7 +61,7 @@ function SendMailForgotPass( email:string, username:string, password:string) {
         from: 'TVnow',
         to: email,
         subject: 'TVnow.com | Forgot Password',
-        html: `<h2>You request the forgotten password, please feel free to login <a href="http://localhost:3000/login">here</a>.</h2>
+        html: `<h2>You request the forgotten password, please feel free to login <a href=${process.env.DEVELOP_CLIENT + '/signin'}>here</a>.</h2>
         <h3>Your Account</h3>
             <h4>Username:</b> ${username}</h4>
             <h4>Password:</b> ${password}</h4>

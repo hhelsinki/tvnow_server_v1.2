@@ -5,6 +5,7 @@ import randtoken from 'rand-token';
 import ErrDetector from "../debug/ErrorDetector";
 
 const pools = require('../mysql/database.ts');
+const { SendMailForgotPass, SendMailChangePass } = require('../services/SendMail');
 
 function TwoFactor(req: Request, res: Response) {
     let api_key = req.headers['api-key'];
@@ -64,7 +65,7 @@ function ForgotPass(req: Request, res: Response) {
                         let username: string = results.username;
                         let email: string = results.email;
                         let password: string = results.password;
-                        SendMailForgotPass(username, email, password);
+                        SendMailForgotPass(email, username, password);
                         return res.send({ status: true, message: success_user_list.SUCCESS_MAIL_GET_PASS });
                 }
             });
@@ -88,7 +89,7 @@ function ChangePass(req: Request, res: Response) {
         if (result.isEmpty()) {
             let password: string = req.body.password;
             //@ts-ignore
-            pools.query('SELECT id, email FROM user WHERE BINARY access_token = ?', [authorization], (err, result) => {
+            pools.query('SELECT id, email, password FROM user WHERE BINARY access_token = ?', [authorization], (err, result) => {
                 if (err) throw err;
                 let results = result[0];
                 switch (results) {
