@@ -1,28 +1,30 @@
 import { Request, Response } from "express";
 import { CTProps, CTTypes, MovieDetailProps, ShowDetailProps } from "../lib/types";
 import { validationResult } from "express-validator";
+import { error_user_list } from "../lib/i18n";
+require('dotenv').config({ path: ".env" });
 
 const pools = require('../mysql/database');
 
 //import json
-const originHome: CTTypes = require('../lib/contents/content-home');
-const originMovies: CTTypes = require('../lib/contents/cate-movies.ts');
-const originShows: CTTypes = require('../lib/contents/cate-shows.js');
-const originContentShows: ShowDetailProps = require('../lib/contents/content-shows.js');
-const originContentMovies: MovieDetailProps = require('../lib/contents/content-movies.js');
-const originContentAll: CTProps = require('../lib/contents/content-all.js');
-const originCateAction: CTTypes = require('../lib/contents/cate-action.js');
-const originCateCartoon: CTTypes = require('../lib/contents/cate-cartoon.js');
-const originCateComedy: CTTypes = require('../lib/contents/cate-comedy.js');
-const originCateCrime: CTTypes = require('../lib/contents/cate-crime.js');
-const originCateDrama: CTTypes = require('../lib/contents/cate-drama.js');
-const originCateFantasy: CTTypes = require('../lib/contents/cate-fantasy.js');
-const originCateHorror: CTTypes = require('../lib/contents/cate-horror.js');
-const originCateLGBTQ: CTTypes = require('../lib/contents/cate-lgbtq.js');
-const originCateRomance: CTTypes = require('../lib/contents/cate-romance.js');
-const originCateSciFi: CTTypes = require('../lib/contents/cate-sci-fi.js');
-const originCateSuspense: CTTypes = require('../lib/contents/cate-suspense.js');
-const originCateThriller: CTTypes = require('../lib/contents/cate-thriller.js');
+const originHome = require('../lib/contents/content-home');
+const originMovies = require('../lib/contents/cate-movies.ts');
+const originShows = require('../lib/contents/cate-shows.ts');
+const originContentShows = require('../lib/contents/content-shows.ts');
+const originContentMovies = require('../lib/contents/content-movies.ts');
+const originContentAll = require('../lib/contents/content-all.ts');
+const originCateAction = require('../lib/contents/cate-action.ts');
+const originCateCartoon = require('../lib/contents/cate-cartoon.ts');
+const originCateComedy = require('../lib/contents/cate-comedy.ts');
+const originCateCrime = require('../lib/contents/cate-crime.ts');
+const originCateDrama = require('../lib/contents/cate-drama.ts');
+const originCateFantasy = require('../lib/contents/cate-fantasy.ts');
+const originCateHorror = require('../lib/contents/cate-horror.ts');
+const originCateLGBTQ = require('../lib/contents/cate-lgbtq.ts');
+const originCateRomance = require('../lib/contents/cate-romance.ts');
+const originCateSciFi = require('../lib/contents/cate-sci-fi.ts');
+const originCateSuspense = require('../lib/contents/cate-suspense.ts');
+const originCateThriller = require('../lib/contents/cate-thriller.ts');
 
 //origin json
 const showcase = originHome.showcase;
@@ -164,18 +166,16 @@ class JsonLimit {
 
                                 //console.log('limit pass')
                             }
-                            else {
-                                //console.log(`limit must less than or equal ${range}`)
+                            else if ((limit > 0) && (limit > range)) {
+                                status = true;
+                                totalPage = 0;
+                                output = getJson;
                             }
-                            //console.log(range)
-                            //console.log('+++')
-
                             return res.send({ status: status, page_end: totalPage, page_start: 0, results: output });
                     }
                 });
                 return;
             }
-
             return res.send({ status: false, message: result.array() });
         }
 
@@ -230,37 +230,42 @@ var getRecentAdd = new JsonLimit(recentAddCopy);
 var getExclusive = new JsonLimit(exclusiveCopy);
 var getMovies = new JsonLimit(moviesCopy);
 var getShows = new JsonLimit(showsCopy);
-
+var getAction = new JsonLimit(action);
+var getCartoon = new JsonLimit(cartoon);
+var getComedy = new JsonLimit(comedy);
+var getCrime = new JsonLimit(crime);
+var getDrama = new JsonLimit(drama);
+var getFantasy = new JsonLimit(fantasy);
+var getHorror = new JsonLimit(horror);
+var getLgbtq = new JsonLimit(lgbtq);
+var getRomance = new JsonLimit(romance);
+var getScifi = new JsonLimit(scifi);
+var getSuspense = new JsonLimit(suspense);
+var getThriller = new JsonLimit(thriller);
 var getShowcase = new JsonAll(showcase);
-var getAction = new JsonAll(action);
-var getCartoon = new JsonAll(cartoon);
-var getComedy = new JsonAll(comedy);
-var getCrime = new JsonAll(crime);
-var getDrama = new JsonAll(drama);
-var getFantasy = new JsonAll(fantasy);
-var getHorror = new JsonAll(horror);
-var getLgbtq = new JsonAll(lgbtq);
-var getRomance = new JsonAll(romance);
-var getScifi = new JsonAll(scifi);
-var getSuspense = new JsonAll(suspense);
-var getThriller = new JsonAll(thriller);
 
-function GetAllByNameQuery(req: Request, res: Response) {
+
+function SearchAllByNameQuery(req: Request, res: Response) {
     let api_key = req.headers['api-key'];
+
     if (api_key === '1234') {
         const result = validationResult(req);
 
         if (result.isEmpty()) {
-            let authorization = req.headers.authorization;
+            let authorization = req.headers['authorization'];
             let name = req.query.name;
-
+            //@ts-ignore
             pools.query('SELECT id FROM user WHERE BINARY access_token = ?', [authorization], (err, result) => {
                 if (err) throw err;
                 switch (result[0]) {
                     case null: case undefined: case '':
                         return res.sendStatus(401);
                     default:
-                        return res.send({ status: true, data: contentAll[name] });
+                        if (contentAll[`${name}`] === null || contentAll[`${name}`] === undefined || contentAll[`${name}`] === '') {
+                            return res.send({ status: false, data: error_user_list.NOTFOUND_CONTENT });
+                        }
+                        let content_results = contentAll[`${name}`];
+                        return res.send({ status: true, data: content_results });
                 }
             });
             return;
@@ -289,13 +294,41 @@ function GetShowByNameParam(req: Request, res: Response) {
                     case null: case undefined: case '':
                         return res.sendStatus(401);
                     default:
+                        if (contentShows[name] === null || contentShows[name] === undefined || contentShows[name] === '') {
+                            return res.send({ status: false, message: error_user_list.NOTFOUND_CONTENT });
+                        }
                         return res.send({ status: true, data: contentShows[name] });
                 }
             });
             return;
 
         }
-        return res.send({ status: true, data: contentShows[name], remark: 'Login is requried.' }); //do not show youtube url
+        if (contentShows[name] === null || contentShows[name] === undefined || contentShows[name] === '') {
+            return res.send({ status: false, message: error_user_list.NOTFOUND_CONTENT });
+        }
+
+        let show_results = contentShows[name];
+        let show_info = show_results.info;
+        let show_eps = show_results.allEPs;
+        let show_ss = show_results.allSeasons;
+        let show_related = show_results.related;
+
+        const info_sliced = Object.keys(show_info).slice(0, 10).reduce((result, key) => {
+            //@ts-ignore
+            result[key] = show_info[key];
+            return result;
+        }, {});
+
+        return res.send({
+            status: true,
+            data: {
+                info: info_sliced,
+                show_eps,
+                show_ss,
+                show_related
+            },
+            message: error_user_list.INVALID_CREDENTIAL
+        }); //do not show youtube url
     }
 
     if (api_key != '1234') {
@@ -318,13 +351,36 @@ function GetMovieByNameParam(req: Request, res: Response) {
                     case null: case undefined: case '':
                         return res.sendStatus(401);
                     default:
+                        if (contentMovies[name] === null || contentMovies[name] === undefined || contentMovies[name] === '') {
+                            return res.send({ status: false, message: error_user_list.NOTFOUND_CONTENT });
+                        }
                         return res.send({ status: true, data: contentMovies[name] });
                 }
             });
             return;
-
         }
-        return res.send({ status: true, data: contentMovies[name], remark: 'Login is requried.' }); //do not show youtube url
+        if (contentMovies[name] === null || contentMovies[name] === undefined || contentMovies[name] === '') {
+            return res.send({ status: false, message: error_user_list.NOTFOUND_CONTENT });
+        }
+
+        let movie_results = contentMovies[name];
+        let movie_info = movie_results.info;
+        let movie_related = movie_results.related;
+
+        const info_sliced = Object.keys(movie_info).slice(0, 9).reduce((result, key) => {
+            //@ts-ignore
+            result[key] = movie_info[key];
+            return result;
+        }, {});
+
+        return res.send({
+            status: true,
+            data: {
+                info: info_sliced,
+                movie_related
+            },
+            message: error_user_list.INVALID_CREDENTIAL
+        }); //do not show youtube url
     }
 
     if (api_key != '1234') {
@@ -332,24 +388,24 @@ function GetMovieByNameParam(req: Request, res: Response) {
     }
 }
 
-let GetTrendingLimit = getTrending.onCalculate.bind(getTrending);
-let GetMostWatchLimit = getMostWatch.onCalculate.bind(getMostWatch);
-let GetRecentAddLimit = getRecentAdd.onCalculate.bind(getRecentAdd);
-let GetExclusiveLimit = getExclusive.onCalculate.bind(getExclusive);
-let GetShowsLimit = getMovies.onCalculate.bind(getShows);
-let GetMoviesLimit = getMovies.onCalculate.bind(getMovies);
 let GetShowcaseAll = getShowcase.onCalculate.bind(getShowcase);
-let GetActionAll = getAction.onCalculate.bind(getAction);
-let GetCartoonAll = getCartoon.onCalculate.bind(getCartoon);
-let GetComedyAll = getComedy.onCalculate.bind(getComedy);
-let GetCrimeAll = getCrime.onCalculate.bind(getCrime);
-let GetDramaAll = getDrama.onCalculate.bind(getDrama);
-let GetFantasyAll = getFantasy.onCalculate.bind(getFantasy);
-let GetHorrorAll = getHorror.onCalculate.bind(getHorror);
-let GetLgbtqAll = getLgbtq.onCalculate.bind(getLgbtq);
-let GetRomanceAll = getRomance.onCalculate.bind(getRomance);
-let GetScifiAll = getScifi.onCalculate.bind(getScifi);
-let GetSuspenseAll = getSuspense.onCalculate.bind(getSuspense);
-let GetThrillerAll = getThriller.onCalculate.bind(getThriller);
+let GetTrendByOffset = getTrending.onCalculate.bind(getTrending);
+let GetMostWatchByOffset = getMostWatch.onCalculate.bind(getMostWatch);
+let GetRecentByOffset = getRecentAdd.onCalculate.bind(getRecentAdd);
+let GetExclusiveByOffset = getExclusive.onCalculate.bind(getExclusive);
+let GetShowByOffset = getMovies.onCalculate.bind(getShows);
+let GetMovieByOffset = getMovies.onCalculate.bind(getMovies);
+let GetActionByOffset = getAction.onCalculate.bind(getAction);
+let GetCartoonByOffset = getCartoon.onCalculate.bind(getCartoon);
+let GetComedyByOffset = getComedy.onCalculate.bind(getComedy);
+let GetCrimeByOffset = getCrime.onCalculate.bind(getCrime);
+let GetDramaByOffset = getDrama.onCalculate.bind(getDrama);
+let GetFantasyByOffset = getFantasy.onCalculate.bind(getFantasy);
+let GetHorrorByOffset = getHorror.onCalculate.bind(getHorror);
+let GetLgbtqByOffset = getLgbtq.onCalculate.bind(getLgbtq);
+let GetRomanceByOffset = getRomance.onCalculate.bind(getRomance);
+let GetScifiByOffset = getScifi.onCalculate.bind(getScifi);
+let GetSuspenseByOffset = getSuspense.onCalculate.bind(getSuspense);
+let GetThrillerByOffset = getThriller.onCalculate.bind(getThriller);
 
-module.exports = { GetAllByNameQuery, GetShowByNameParam, GetMovieByNameParam, GetTrendingLimit, GetMostWatchLimit, GetRecentAddLimit, GetExclusiveLimit, GetShowsLimit, GetMoviesLimit, GetShowcaseAll, GetActionAll, GetCartoonAll, GetComedyAll, GetCrimeAll, GetDramaAll, GetFantasyAll, GetHorrorAll, GetLgbtqAll, GetRomanceAll, GetScifiAll, GetSuspenseAll, GetThrillerAll };
+module.exports = { SearchAllByNameQuery, GetShowByNameParam, GetMovieByNameParam, GetShowcaseAll, GetTrendByOffset, GetMostWatchByOffset, GetRecentByOffset, GetExclusiveByOffset, GetShowByOffset, GetMovieByOffset, GetActionByOffset, GetCartoonByOffset, GetComedyByOffset, GetCrimeByOffset, GetDramaByOffset, GetFantasyByOffset, GetHorrorByOffset, GetLgbtqByOffset, GetRomanceByOffset, GetScifiByOffset, GetSuspenseByOffset, GetThrillerByOffset };

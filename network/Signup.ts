@@ -4,6 +4,7 @@ import { error_internal_list, error_user_list, success_user_list } from "../lib/
 import ErrDetector from "../debug/ErrorDetector";
 import crypto from 'crypto';
 import randtoken from 'rand-token';
+require('dotenv').config({ path: ".env" });
 
 const pools = require('../mysql/database');
 const { SendMailSignup } = require('../services/SendMail')

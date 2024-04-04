@@ -3,6 +3,7 @@ import { error_internal_list, error_user_list, success_user_list } from "../lib/
 import { validationResult } from "express-validator";
 import randtoken from 'rand-token';
 import ErrDetector from "../debug/ErrorDetector";
+require('dotenv').config({ path: ".env" });
 
 const pools = require('../mysql/database.ts');
 const { SendMailForgotPass, SendMailChangePass } = require('../services/SendMail');

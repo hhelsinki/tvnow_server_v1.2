@@ -16,6 +16,7 @@ export const error_user_list = {
     DUPLICATE_PASSWORD: 'Please enter the new password.',
     NOTFOUND_USERNAME: 'This username is not exist.',
     NOTFOUND_EMAIL: 'This email is not exist.',
+    NOTFOUND_CONTENT: 'This content is not exist.',
     EXPIRED_TOKEN: 'The twofactor\'s session is expired, please try again later.',
     MISSING_VERIFY: 'You must activate this account before change the password.'
 }
@@ -26,6 +27,7 @@ export const success_user_list = {
     VALID_EMAIL: 'This email can be used.',
     SUCCESS_SIGNOUT: 'Signout successfully.',
     SUCCESS_SAVE_PASSWORD: 'The password is successfully saved.',
+    SUCCESS_SAVE_FAVOUR: 'The favourite is successfully saved.',
     SUCCESS_SAVE_TWOFAC: 'The two factor is successfully saved.',
     SUCCESS_MAIL_TOKEN: 'The 6 digit key is send to your email.',
     SUCCESS_MAIL_CHANGE_PASS: 'Please check your email to change the password.',
@@ -43,4 +45,5 @@ export const error_internal_list = {
     FAILED_SAVE_GIFTCODE: 'Failed to save the giftcode.',
     FAILED_SAVE_PAYMENT: 'Failed to save the payment.',
     FAILED_SAVE_AUTHEN: 'Failed to save the authenticate.',
+    FAILED_SAVE_FAVOUR: 'Failed to save the favourite.',
 }

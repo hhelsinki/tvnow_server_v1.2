@@ -7,7 +7,7 @@ var randtoken = require('rand-token').generator({
     source: crypto.randomBytes
 });
 
-//@ts-ignore
+require('dotenv').config({ path: ".env" });
 const pools = require('../mysql/database.ts');
 
 // Generate a 16 character token:

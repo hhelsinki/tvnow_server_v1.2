@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 import { error_user_list } from "../lib/i18n";
 import randtoken from 'rand-token';
+require('dotenv').config({ path: ".env" });
 
 const pools = require('../mysql/database');
 

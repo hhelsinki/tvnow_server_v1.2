@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { error_internal_list, error_user_list, success_user_list } from "../lib/i18n";
 import ErrDetector from "../debug/ErrorDetector";
 import { validationResult } from "express-validator";
+require('dotenv').config({ path: ".env" });
 
 const pools = require('../mysql/database.ts');
 
@@ -13,7 +14,7 @@ function ChangePassword(req: Request, res: Response) {
 
         if (result.isEmpty()) {
             let token = req.headers['authorization'];
-            let current_password: string = req.body.current_password;
+            let current_password: string = req.body.password;
             //@ts-ignore
             pools.query('SELECT id, email FROM user WHERE (BINARY password = ? && BINARY access_token = ?)', [current_password, token], (err, result) => {
                 if (err) throw err;

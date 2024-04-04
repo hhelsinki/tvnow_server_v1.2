@@ -3,16 +3,18 @@ import { validationResult } from "express-validator";
 import { error_user_list, success_user_list } from "../lib/i18n";
 import ErrDetector from "../debug/ErrorDetector";
 import randtoken from 'rand-token';
+require('dotenv').config({ path: ".env" });
+// console.log(process.env.DEVELOP_SQL_USER, 'signin.ts');
 const pools = require('../mysql/database');
 const timekey = require('rand-token').generator({
     chars: '0-9'
 });
 const { SendMailTwoFactor } = require('../services/SendMail');
 const { MongoClient } = require('mongodb');
-const url = 'mongodb://localhost:27017';
+const url = process.env.DEVELOP_MONGO_URL;
 const client = new MongoClient(url);
-const dbName = 'favourite';
-const collection = client.db(dbName).collection('list');
+const dbName = process.env.DEVELOP_MONGO;
+const collection = client.db(dbName).collection(process.env.DEVELOP_MONGO_COLL);
 
 
 function Signin(req: Request, res: Response) {
@@ -37,7 +39,7 @@ function Signin(req: Request, res: Response) {
                                 switch (results.is_twofactor) {
                                     case 1:
                                         //@ts-ignore
-                                        pools.query('SELECT * FROM authen WHERE user_id = ?', [results.id], (err, result) => {
+                                        pools.query('SELECT mistake_expire FROM authen WHERE user_id = ?', [results.id], (err, result) => {
                                             if (err) throw err;
                                             let authenResult = result[0];
                                             const timestamp = Date.now();
@@ -79,10 +81,12 @@ function Signin(req: Request, res: Response) {
                                                         const findUser = await collection.find({ user: results.email }).toArray();
                                                         switch (findUser[0]) {
                                                             case null: case undefined: case '':
-                                                                await collection.insertOne({ user: results.email, token: token, data: [] });
+                                                                const insertUser = await collection.insertOne({ user: results.email, token: token, data: [] });
+                                                                console.log(insertUser)
                                                                 break;
                                                             default:
-                                                                await collection.updateOne({ user: results.email }, { $set: { token: token } });
+                                                                const updateResult = await collection.updateOne({ user: results.email }, { $set: { token: token } });
+                                                                console.log(updateResult)
                                                                 break;
                                                         }
                                                     }
@@ -105,7 +109,7 @@ function Signin(req: Request, res: Response) {
                                 return res.send({ status: false, message: error_user_list.INVALID_VERIFY });
                         }
                 }
-            })
+            });
             return;
         }
         return res.send({ status: false, message: result.array() });

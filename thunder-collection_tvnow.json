@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "tvnow",
-    "dateExported": "2024-04-02T03:53:28.088Z",
+    "dateExported": "2024-04-04T10:09:33.331Z",
     "version": "1.1",
     "folders": [
         {
@@ -31,6 +31,27 @@
             "containerId": "93aea977-2d5a-4c8c-8244-9243d5cb94d1",
             "created": "2024-04-02T03:32:18.019Z",
             "sortNum": 40000
+        },
+        {
+            "_id": "93ad0d17-04fd-4009-86d4-7465dd0d38ce",
+            "name": "core",
+            "containerId": "",
+            "created": "2024-04-04T04:09:05.308Z",
+            "sortNum": 50000
+        },
+        {
+            "_id": "2be916a1-d0b9-483e-b1f8-a0b83032b6cd",
+            "name": "category",
+            "containerId": "93ad0d17-04fd-4009-86d4-7465dd0d38ce",
+            "created": "2024-04-04T08:55:55.594Z",
+            "sortNum": 60000
+        },
+        {
+            "_id": "bdc992d8-b49e-428e-863c-2628cbc2e64f",
+            "name": "favourite",
+            "containerId": "93aea977-2d5a-4c8c-8244-9243d5cb94d1",
+            "created": "2024-04-04T09:30:33.011Z",
+            "sortNum": 70000
         }
     ],
     "requests": [
@@ -56,6 +77,40 @@
                 "raw": "{\n  \"email\": \"bongkotsaelo.cmtc@gmail.com\"\n}",
                 "form": []
             },
+            "tests": []
+        },
+        {
+            "_id": "bc2c547b-5b0a-45c2-ab52-bbe50df64614",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "2be916a1-d0b9-483e-b1f8-a0b83032b6cd",
+            "name": "Get Action By Offset ",
+            "url": "{{endpoint}}/content/cate/action?limit=20&page=0",
+            "method": "GET",
+            "sortNum": 5000,
+            "created": "2024-04-04T08:56:57.913Z",
+            "modified": "2024-04-04T09:09:15.303Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                },
+                {
+                    "name": "authorization",
+                    "value": "{{access_token}}"
+                }
+            ],
+            "params": [
+                {
+                    "name": "limit",
+                    "value": "20",
+                    "isPath": false
+                },
+                {
+                    "name": "page",
+                    "value": "0",
+                    "isPath": false
+                }
+            ],
             "tests": []
         },
         {
@@ -131,6 +186,40 @@
                 "raw": "{\n  \"is_twofactor\": false\n}",
                 "form": []
             },
+            "tests": []
+        },
+        {
+            "_id": "9087a1ef-464f-432d-b56d-3c2f2791692e",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "2be916a1-d0b9-483e-b1f8-a0b83032b6cd",
+            "name": "Get Cartoon By Offset ",
+            "url": "{{endpoint}}/content/cate/cartoon?limit=5&page=0",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2024-04-04T08:55:24.020Z",
+            "modified": "2024-04-04T08:56:51.033Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                },
+                {
+                    "name": "authorization",
+                    "value": "{{access_token}}"
+                }
+            ],
+            "params": [
+                {
+                    "name": "limit",
+                    "value": "5",
+                    "isPath": false
+                },
+                {
+                    "name": "page",
+                    "value": "0",
+                    "isPath": false
+                }
+            ],
             "tests": []
         },
         {
@@ -214,6 +303,40 @@
             "tests": []
         },
         {
+            "_id": "b7c542d9-36dc-43bc-9f7b-c8dad34d3458",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "2be916a1-d0b9-483e-b1f8-a0b83032b6cd",
+            "name": "Get Comedy By Offset ",
+            "url": "{{endpoint}}/content/cate/comedy?limit=5&page=0",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-04-04T08:57:16.452Z",
+            "modified": "2024-04-04T08:57:34.403Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                },
+                {
+                    "name": "authorization",
+                    "value": "{{access_token}}"
+                }
+            ],
+            "params": [
+                {
+                    "name": "limit",
+                    "value": "5",
+                    "isPath": false
+                },
+                {
+                    "name": "page",
+                    "value": "0",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
             "_id": "a46a02b7-60b7-473a-b989-334325eb6c8e",
             "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
             "containerId": "2c858d0e-d523-48f0-b56b-8a7b1de9c497",
@@ -265,6 +388,40 @@
                 "raw": "{\n  \"password\": \"123456\"\n}",
                 "form": []
             },
+            "tests": []
+        },
+        {
+            "_id": "a2449d28-6d7c-424d-bed3-eb7a0ac549bf",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "2be916a1-d0b9-483e-b1f8-a0b83032b6cd",
+            "name": "Get Crime By Offset ",
+            "url": "{{endpoint}}/content/cate/crime?limit=5&page=0",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-04-04T08:58:04.935Z",
+            "modified": "2024-04-04T08:58:20.335Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                },
+                {
+                    "name": "authorization",
+                    "value": "{{access_token}}"
+                }
+            ],
+            "params": [
+                {
+                    "name": "limit",
+                    "value": "5",
+                    "isPath": false
+                },
+                {
+                    "name": "page",
+                    "value": "0",
+                    "isPath": false
+                }
+            ],
             "tests": []
         },
         {
@@ -336,6 +493,40 @@
             "tests": []
         },
         {
+            "_id": "db8e90f2-5198-4591-848e-284b5dc47234",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "2be916a1-d0b9-483e-b1f8-a0b83032b6cd",
+            "name": "Get Drama By Offset ",
+            "url": "{{endpoint}}/content/cate/drama?limit=5&page=0",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2024-04-04T08:58:40.242Z",
+            "modified": "2024-04-04T08:58:55.780Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                },
+                {
+                    "name": "authorization",
+                    "value": "{{access_token}}"
+                }
+            ],
+            "params": [
+                {
+                    "name": "limit",
+                    "value": "5",
+                    "isPath": false
+                },
+                {
+                    "name": "page",
+                    "value": "0",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
             "_id": "8f02219e-027f-49f6-bf42-65773806f4b4",
             "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
             "containerId": "2c858d0e-d523-48f0-b56b-8a7b1de9c497",
@@ -357,6 +548,40 @@
                 "raw": "{\n  \"username\": \"emeline\",\n  \"email\": \"emelinecassidy@gmail.com\",\n  \"plan\": 1\n}",
                 "form": []
             },
+            "tests": []
+        },
+        {
+            "_id": "ebcc9207-5a79-44ae-b12b-26bf8763c7ae",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "2be916a1-d0b9-483e-b1f8-a0b83032b6cd",
+            "name": "Get Fantasy By Offset ",
+            "url": "{{endpoint}}/content/cate/fantasy?limit=5&page=0",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2024-04-04T08:59:02.161Z",
+            "modified": "2024-04-04T08:59:18.822Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                },
+                {
+                    "name": "authorization",
+                    "value": "{{access_token}}"
+                }
+            ],
+            "params": [
+                {
+                    "name": "limit",
+                    "value": "5",
+                    "isPath": false
+                },
+                {
+                    "name": "page",
+                    "value": "0",
+                    "isPath": false
+                }
+            ],
             "tests": []
         },
         {
@@ -382,6 +607,560 @@
                     "isPath": false
                 }
             ],
+            "tests": []
+        },
+        {
+            "_id": "60fabbb2-34eb-4f0a-bf43-662cf4ce3f34",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "2be916a1-d0b9-483e-b1f8-a0b83032b6cd",
+            "name": "Get Horror By Offset ",
+            "url": "{{endpoint}}/content/cate/horror?limit=5&page=0",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2024-04-04T08:59:28.496Z",
+            "modified": "2024-04-04T08:59:38.524Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                },
+                {
+                    "name": "authorization",
+                    "value": "{{access_token}}"
+                }
+            ],
+            "params": [
+                {
+                    "name": "limit",
+                    "value": "5",
+                    "isPath": false
+                },
+                {
+                    "name": "page",
+                    "value": "0",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "a1d92aa8-9903-4c49-a70f-525ac280952c",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "93ad0d17-04fd-4009-86d4-7465dd0d38ce",
+            "name": "Get Show By Name Param",
+            "url": "{{endpoint}}/content/shows/the-good-wife-season-1",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2024-04-04T04:09:23.188Z",
+            "modified": "2024-04-04T08:46:09.771Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                },
+                {
+                    "name": "authorization",
+                    "value": "{{access_token}}",
+                    "isDisabled": true
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "aeac45db-3b28-41fe-acb5-c55a657938e6",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "2be916a1-d0b9-483e-b1f8-a0b83032b6cd",
+            "name": "Get LGBTQ By Offset ",
+            "url": "{{endpoint}}/content/cate/lgbtq?limit=5&page=0",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2024-04-04T08:59:48.984Z",
+            "modified": "2024-04-04T09:09:34.314Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                },
+                {
+                    "name": "authorization",
+                    "value": "{{access_token}}"
+                }
+            ],
+            "params": [
+                {
+                    "name": "limit",
+                    "value": "5",
+                    "isPath": false
+                },
+                {
+                    "name": "page",
+                    "value": "0",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "7284f17a-0a87-4b14-a313-7030347e115f",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "93ad0d17-04fd-4009-86d4-7465dd0d38ce",
+            "name": "Get Movie By Name Param",
+            "url": "{{endpoint}}/content/movies/the-batman",
+            "method": "GET",
+            "sortNum": 80000,
+            "created": "2024-04-04T04:09:59.998Z",
+            "modified": "2024-04-04T08:46:14.057Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                },
+                {
+                    "name": "authorization",
+                    "value": "{{access_token}}"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "9577f61c-d583-49c0-a456-eecb579d766c",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "2be916a1-d0b9-483e-b1f8-a0b83032b6cd",
+            "name": "Get Romance By Offset ",
+            "url": "{{endpoint}}/content/cate/romance?limit=5&page=0",
+            "method": "GET",
+            "sortNum": 80000,
+            "created": "2024-04-04T09:00:09.771Z",
+            "modified": "2024-04-04T09:00:29.017Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                },
+                {
+                    "name": "authorization",
+                    "value": "{{access_token}}"
+                }
+            ],
+            "params": [
+                {
+                    "name": "limit",
+                    "value": "5",
+                    "isPath": false
+                },
+                {
+                    "name": "page",
+                    "value": "0",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "379bd74f-3387-4e0f-8600-76fcf0d694d1",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "bdc992d8-b49e-428e-863c-2628cbc2e64f",
+            "name": "Get Favourite All",
+            "url": "{{endpoint}}/user/favourite",
+            "method": "GET",
+            "sortNum": 85000,
+            "created": "2024-04-04T10:03:15.655Z",
+            "modified": "2024-04-04T10:03:28.933Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                },
+                {
+                    "name": "authorization",
+                    "value": "{{access_token}}"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "a495b4ff-27cc-4e8c-9b7a-93f6a671d234",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "93ad0d17-04fd-4009-86d4-7465dd0d38ce",
+            "name": "Search Content By Name Query",
+            "url": "{{endpoint}}/content/search?name=the batman",
+            "method": "GET",
+            "sortNum": 90000,
+            "created": "2024-04-04T08:10:23.217Z",
+            "modified": "2024-04-04T08:46:18.329Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                },
+                {
+                    "name": "authorization",
+                    "value": "{{access_token}}"
+                }
+            ],
+            "params": [
+                {
+                    "name": "name",
+                    "value": "the batman",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "9fabf367-9dd5-4626-99bd-2c6eaa18906e",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "2be916a1-d0b9-483e-b1f8-a0b83032b6cd",
+            "name": "Get Sci-Fi By Offset ",
+            "url": "{{endpoint}}/content/cate/scifi?limit=5&page=0",
+            "method": "GET",
+            "sortNum": 90000,
+            "created": "2024-04-04T09:00:37.766Z",
+            "modified": "2024-04-04T09:00:59.318Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                },
+                {
+                    "name": "authorization",
+                    "value": "{{access_token}}"
+                }
+            ],
+            "params": [
+                {
+                    "name": "limit",
+                    "value": "5",
+                    "isPath": false
+                },
+                {
+                    "name": "page",
+                    "value": "0",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "fd3625ac-b463-48b0-ae3f-28b63450b6d8",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "93ad0d17-04fd-4009-86d4-7465dd0d38ce",
+            "name": "Get Showcase",
+            "url": "{{endpoint}}/content/showcase",
+            "method": "GET",
+            "sortNum": 100000,
+            "created": "2024-04-04T08:45:32.974Z",
+            "modified": "2024-04-04T08:46:51.674Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                },
+                {
+                    "name": "authorization",
+                    "value": "{{access_token}}"
+                }
+            ],
+            "params": [
+                {
+                    "name": "name",
+                    "value": "the batman",
+                    "isDisabled": true,
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "411a2d8e-0173-43f4-93f9-08d13b0a7f3f",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "2be916a1-d0b9-483e-b1f8-a0b83032b6cd",
+            "name": "Get Thriller By Offset ",
+            "url": "{{endpoint}}/content/cate/thriller?limit=5&page=0",
+            "method": "GET",
+            "sortNum": 100000,
+            "created": "2024-04-04T09:01:07.434Z",
+            "modified": "2024-04-04T09:01:21.759Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                },
+                {
+                    "name": "authorization",
+                    "value": "{{access_token}}"
+                }
+            ],
+            "params": [
+                {
+                    "name": "limit",
+                    "value": "5",
+                    "isPath": false
+                },
+                {
+                    "name": "page",
+                    "value": "0",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "d04723ba-d92b-4c29-93b0-26cc15b59d75",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "93ad0d17-04fd-4009-86d4-7465dd0d38ce",
+            "name": "Get Trending By Offset",
+            "url": "{{endpoint}}/content/trending?limit=5&page=0",
+            "method": "GET",
+            "sortNum": 110000,
+            "created": "2024-04-04T08:47:01.894Z",
+            "modified": "2024-04-04T08:48:23.932Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                },
+                {
+                    "name": "authorization",
+                    "value": "{{access_token}}"
+                }
+            ],
+            "params": [
+                {
+                    "name": "limit",
+                    "value": "5",
+                    "isPath": false
+                },
+                {
+                    "name": "page",
+                    "value": "0",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "c2d8a136-55fa-4e75-b172-e10604f2c19a",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "93ad0d17-04fd-4009-86d4-7465dd0d38ce",
+            "name": "Get Most Watching By Offset",
+            "url": "{{endpoint}}/content/most-watch?limit=5&page=0",
+            "method": "GET",
+            "sortNum": 120000,
+            "created": "2024-04-04T08:48:33.278Z",
+            "modified": "2024-04-04T08:48:52.723Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                },
+                {
+                    "name": "authorization",
+                    "value": "{{access_token}}"
+                }
+            ],
+            "params": [
+                {
+                    "name": "limit",
+                    "value": "5",
+                    "isPath": false
+                },
+                {
+                    "name": "page",
+                    "value": "0",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "0418a4ed-9535-4870-9b30-fed606000dc4",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "bdc992d8-b49e-428e-863c-2628cbc2e64f",
+            "name": "Get Favourite By Param",
+            "url": "{{endpoint}}/user/favourite/the-batman",
+            "method": "GET",
+            "sortNum": 127500,
+            "created": "2024-04-04T10:01:10.346Z",
+            "modified": "2024-04-04T10:02:07.838Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                },
+                {
+                    "name": "authorization",
+                    "value": "{{access_token}}"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "fec17d15-05f6-444a-90df-8fc50542fa5a",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "93ad0d17-04fd-4009-86d4-7465dd0d38ce",
+            "name": "Get Recent By Offset ",
+            "url": "{{endpoint}}/content/recent?limit=5&page=0",
+            "method": "GET",
+            "sortNum": 130000,
+            "created": "2024-04-04T08:49:38.247Z",
+            "modified": "2024-04-04T08:52:35.604Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                },
+                {
+                    "name": "authorization",
+                    "value": "{{access_token}}"
+                }
+            ],
+            "params": [
+                {
+                    "name": "limit",
+                    "value": "5",
+                    "isPath": false
+                },
+                {
+                    "name": "page",
+                    "value": "0",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "5c696039-4357-448d-96c2-a598c3a95390",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "93ad0d17-04fd-4009-86d4-7465dd0d38ce",
+            "name": "Get Exclusive By Offset ",
+            "url": "{{endpoint}}/content/exclusive?limit=5&page=0",
+            "method": "GET",
+            "sortNum": 140000,
+            "created": "2024-04-04T08:51:35.018Z",
+            "modified": "2024-04-04T08:53:19.935Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                },
+                {
+                    "name": "authorization",
+                    "value": "{{access_token}}"
+                }
+            ],
+            "params": [
+                {
+                    "name": "limit",
+                    "value": "5",
+                    "isPath": false
+                },
+                {
+                    "name": "page",
+                    "value": "0",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "6bba4c78-f4f9-4864-9674-70c77b5fb9b9",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "93ad0d17-04fd-4009-86d4-7465dd0d38ce",
+            "name": "Get Movies By Offset ",
+            "url": "{{endpoint}}/content/movies?limit=5&page=0",
+            "method": "GET",
+            "sortNum": 150000,
+            "created": "2024-04-04T08:53:33.391Z",
+            "modified": "2024-04-04T08:53:50.567Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                },
+                {
+                    "name": "authorization",
+                    "value": "{{access_token}}"
+                }
+            ],
+            "params": [
+                {
+                    "name": "limit",
+                    "value": "5",
+                    "isPath": false
+                },
+                {
+                    "name": "page",
+                    "value": "0",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "d202cd4b-23fd-4352-b93f-20b8b871e252",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "93ad0d17-04fd-4009-86d4-7465dd0d38ce",
+            "name": "Get Shows By Offset ",
+            "url": "{{endpoint}}/content/shows?limit=5&page=0",
+            "method": "GET",
+            "sortNum": 160000,
+            "created": "2024-04-04T08:54:00.129Z",
+            "modified": "2024-04-04T08:54:13.695Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                },
+                {
+                    "name": "authorization",
+                    "value": "{{access_token}}"
+                }
+            ],
+            "params": [
+                {
+                    "name": "limit",
+                    "value": "5",
+                    "isPath": false
+                },
+                {
+                    "name": "page",
+                    "value": "0",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "f5418f59-0b22-4094-be08-577299e23923",
+            "colId": "a99f159b-fc7e-4177-a7bc-244d3a9f9d40",
+            "containerId": "bdc992d8-b49e-428e-863c-2628cbc2e64f",
+            "name": "Save Favourite By Param",
+            "url": "{{endpoint}}/user/favourite/the-batman",
+            "method": "PATCH",
+            "sortNum": 170000,
+            "created": "2024-04-04T10:00:30.954Z",
+            "modified": "2024-04-04T10:00:30.954Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "{{api_key}}"
+                },
+                {
+                    "name": "authorization",
+                    "value": "{{access_token}}"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"is_favour\": true\n}",
+                "form": []
+            },
             "tests": []
         }
     ]

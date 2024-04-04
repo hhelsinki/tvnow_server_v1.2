@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import ErrDetector from "../debug/ErrorDetector";
 import { error_user_list } from "../lib/i18n";
 import { validationResult } from "express-validator";
+require('dotenv').config({ path: ".env" });
 
 const pools = require('../mysql/database');
 

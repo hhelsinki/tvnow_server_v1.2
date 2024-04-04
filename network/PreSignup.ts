@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { error_user_list, success_user_list } from "../lib/i18n";
 import { validationResult } from "express-validator";
+require('dotenv').config({ path: ".env" });
 
 const pools = require('../mysql/database.ts');
 
